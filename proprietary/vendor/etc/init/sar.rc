@@ -1,0 +1,11 @@
+service setsarcal /vendor/bin/setsarcal.sh
+    disabled
+    user root
+    oneshot
+#    seclabel u:r:wlansar:s0
+
+on property:vendor.sysctl.tx=0
+    exec - root -- /system/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 0"
+
+on property:vendor.sysctl.tx=1
+    exec - root -- /system/bin/iwpriv wlan0 driver "SET_PWR_CTRL MySar 1"
